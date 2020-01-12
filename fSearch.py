@@ -4,10 +4,6 @@ import html2text
 import config
 import custom_search_config as csc
 
-# todo what about some interface, e.g. html page?
-# todo think about human-readable output: html page with links + short descriptions as a starting point
-# todo maybe output would include some kind of table
-
 baseURL = csc.baseURL
 # List of queries used
 qs = config.queries

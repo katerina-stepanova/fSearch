@@ -1,4 +1,4 @@
-# todo if posting to github, remove apiKey and cx
+# todo if posting to public repo in github, remove apiKey and cx
 # Google search url
 baseURL = "https://www.googleapis.com/customsearch/v1?key="
 
