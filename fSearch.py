@@ -108,7 +108,7 @@ for q in qs:
         add_to_results(items)
         if total_results > 10:
             i = 10
-            while i < total_results:
+            while i < min([total_results, config.max_results]):
                 request_string = baseURL + apiKey + cx + "&q=" + q + dates_r + '&start=' + str(i)
                 search_response = requests.get(request_string)
                 print("Получены результаты начиная с " + str(i) + "го по запросу: " + q)
