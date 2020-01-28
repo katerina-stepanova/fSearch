@@ -76,7 +76,7 @@ def check_date_in_range(item):
     dates_range = get_dates_range()
     item_date = ""
     # TODO improvement - get date out of document and check it's in range
-    return True
+    return "/item/" in item["link"]
 
 
 def add_to_results(items_to_add):
