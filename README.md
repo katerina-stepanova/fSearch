@@ -5,13 +5,13 @@
 
 ### Установка и запуск
 - Ставим питон 3.7.5 (Windows: желательно поставить галочку "Add python 3.7 to path")
-- Ставим pipenv (pip3 install pipenv)
+- Ставим pipenv (pip3 install pipenv - линукс, мак; pip install pipenv - винда)
 - Скачиваем/клонируем проект
 - Заходим в терминале в папку проекта 
 - Запускаем pipenv install --ignore-pipfile
 - Запускаем pipenv shell
 - Меняем параметры конфигурации если надо (см. ниже)
-- Запускаем скрипт: python3 fSearch.py
+- Запускаем скрипт: python3 fSearch.py - линукс, мак; python fSearch.py - винда
 
 ### Конфигурация
 config.py - конфигурация поисковых запросов и даты. По умолчанию поиск идет за последние 7 дней
