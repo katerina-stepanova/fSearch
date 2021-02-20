@@ -1,6 +1,9 @@
-import requests
 import datetime
 import html2text
+import requests
+import ssl
+from urllib3 import poolmanager
+
 import config
 import custom_search_config as csc
 
@@ -14,13 +17,29 @@ cx = csc.cx
 results = []
 
 
+class TLSAdapter(requests.adapters.HTTPAdapter):
+
+    def init_poolmanager(self, connections, maxsize, block=False):
+        """Create and initialize the urllib3 PoolManager."""
+        ctx = ssl.create_default_context()
+        ctx.set_ciphers('DEFAULT@SECLEVEL=1')
+        self.poolmanager = poolmanager.PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            ssl_version=ssl.PROTOCOL_TLS,
+            ssl_context=ctx)
+
+
 def info_from_item(this_item):
     link = this_item["link"]
     extra_stuff = ["?print=1", "?year=&month=&day=&type=main", "?type=news", "ion=60", chr(174)]
     for st in extra_stuff:
         link = link.replace(st, "")
     # get text
-    text_full = requests.get(link).text
+    session = requests.session()
+    session.mount('https://', TLSAdapter())
+    text_full = session.get(link).text
     # TODO improvement better text extraction
     news_text = html2text.html2text(text_full)
     # get region
@@ -119,7 +138,7 @@ for q in qs:
                 i = i + 10
 print("Результаты получены без ошибок")
 print("Создаем html файл...")
-html = """<html><table border="1">
+html = """<html><meta charset="UTF-8"><table border="1">
 <tr><th>Id</th><th>Регион</th><th>Ссылка</th><th>Текст</th></tr>"""
 """"link": link,
         "snippet": this_item["snippet"],
