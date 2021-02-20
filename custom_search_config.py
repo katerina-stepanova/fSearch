@@ -3,8 +3,8 @@
 baseURL = "https://www.googleapis.com/customsearch/v1?key="
 
 # Custom search parameters
-apiKey = "AIzaSyB4Qd8LnZQGMHvPbCqorO1_bMCquju2S8M"
-cx = "&cx=000885305012449804475:msgywvbfrhl"
+apiKey = ""
+cx = ""
 
 '''Instruction to create apiKey and cx
 1. Create google account or use existing one
@@ -12,7 +12,7 @@ cx = "&cx=000885305012449804475:msgywvbfrhl"
 3. Properties:
    - Region: Russia
    - Restrict results to region - ON
-   - Sites to search: *.sledcom.ru
+   - Sites to search: *.sledcom.ru/news/*
 4. cx = Search engine ID
 5. Go to https://developers.google.com/custom-search/v1/overview
    Click Get a Key
