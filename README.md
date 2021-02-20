@@ -8,7 +8,7 @@
 - Ставим pipenv (pip3 install pipenv - линукс, мак; pip install pipenv - винда)
 - Скачиваем/клонируем проект
 - Заходим в терминале в папку проекта 
-- Запускаем pipenv install --ignore-pipfile
+- Запускаем pipenv install (или pipenv install --ignore-pipfile чтобы поставить версии точно из Pipfile.lock)
 - Запускаем pipenv shell
 - Меняем параметры конфигурации если надо (см. ниже)
 - Запускаем скрипт: python3 fSearch.py - линукс, мак; python fSearch.py - винда
