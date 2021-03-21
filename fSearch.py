@@ -1,4 +1,6 @@
 import datetime
+import re
+
 import html2text
 import requests
 import ssl
@@ -49,12 +51,20 @@ def info_from_item(this_item):
     link_split = link.split("/")
     news_id = link_split[len(link_split) - 1] if link_split[len(link_split) - 1] != "" else link_split[
         len(link_split) - 2]
+    # get tags
+    tags_line_1 = re.findall(r'^Теги:.*$', news_text, re.MULTILINE)
+    tags_line_2 = re.findall(r'\[.*\].*tags', news_text, re.MULTILINE)
+    #
+    tags_string = ','.join(tags_line_1 + tags_line_2)
+    # todo check the next regex
+    tags = re.findall(r'[А-Яа-я\s]{2,}', tags_string, re.MULTILINE)
     return {
         "link": link,
         "snippet": this_item["snippet"],
         "text": news_text,
         "region": news_region,
-        "id": news_id
+        "id": news_id,
+        "tags": ', '.join(tags).replace("Теги, ", "")
     }
 
 
@@ -139,7 +149,7 @@ for q in qs:
 print("Результаты получены без ошибок")
 print("Создаем html файл...")
 html = """<html><meta charset="UTF-8"><table border="1">
-<tr><th>Id</th><th>Регион</th><th>Ссылка</th><th>Текст</th></tr>"""
+<tr><th>Id</th><th>Регион</th><th>Ссылка</th><th>Теги</th><th>Текст</th></tr>"""
 """"link": link,
         "snippet": this_item["snippet"],
         "text": news_text,
@@ -149,6 +159,7 @@ for row in results:
     html += "<tr><td>{}</td>".format(row["id"])
     html += "<td>{}</td>".format(row["region"])
     html += "<td><a href=\"{}\">{}</a></td>".format(row["link"], row["link"])
+    html += "<td>{}</td>".format(row["tags"])
     html += "<td>{}</td>".format(row["snippet"])  # TODO improvement: full text as a tooltip or smth
     html += "</tr>"
 html += "</table></html>"
